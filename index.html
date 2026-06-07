@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nagi – AI-Native Research Environment</title>
+  <meta name="description" content="Nagi helps you understand a research field rather than just find papers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <style>
+    /* RESET & BASE */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg-dark: #E6E4DF;
+      --bg-light: #DBD9D2;
+      --text-main: #2D2D2D;
+      --text-muted: #6B6B6B;
+      --accent: #2D2D2D;
+      --font-main: 'DM Sans', sans-serif;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4 {
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .text-reveal {
+      overflow: hidden;
+      display: inline-flex;
+    }
+    
+    .text-reveal span {
+      transform: translateY(110%);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .text-reveal.in-view span {
+      transform: translateY(0);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(8px);
+      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
+    }
+
+    .fade-in.in-view {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+      position: relative;
+      z-index: 10;
+    }
+
+    .btn-primary {
+      background-color: var(--text-main);
+      color: var(--bg-dark);
+    }
+
+    .btn-primary:hover {
+      background-color: #1a1a1a;
+      transform: scale(0.98);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--text-main);
+      border-color: rgba(0,0,0,0.2);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--text-main);
+      color: var(--bg-dark);
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      z-index: 100;
+      background: rgba(230, 228, 223, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .nav-logo::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background-color: var(--text-main);
+      border-radius: 50%;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background-color: var(--text-main);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 140px 48px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+
+    .hero-brand-header {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .hero-brand-icon {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .hero-brand-text {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+    
+    .hero-title {
+      font-family: var(--font-main);
+      font-size: clamp(4.5rem, 8vw, 7.5rem);
+      line-height: 1.05;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      margin-bottom: 40px;
+      max-width: 1100px;
+      color: #111111;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 700px;
+      gap: 32px;
+      text-align: center;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+      }
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 0;
+      line-height: 1.6;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      background: var(--bg-light);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 100px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .hero-badge:hover {
+      background: var(--text-main);
+      color: var(--bg-dark);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--text-main);
+      border-radius: 50%;
+    }
+
+        /* ARC SECTION */
+    .arc-section {
+      width: 100%;
+      padding-top: 150px; 
+      padding-bottom: 180px;
+      background: transparent;
+      position: relative;
+      margin-top: -200px;
+      z-index: 2;
+    }
+    
+    .arc-track-wrap {
+      width: 100%;
+      white-space: nowrap;
+      display: flex;
+      will-change: transform;
+    }
+    
+    .arc-track {
+      display: inline-flex;
+      align-items: center;
+      padding-right: 0px;
+    }
+
+    .arc-icon-wrapper {
+      display: inline-flex;
+      will-change: transform;
+    }
+
+    .icon-bubble {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.05);
+      margin: 0 24px;
+      color: var(--text-main);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .icon-bubble:hover {
+      transform: translateY(-8px) scale(1.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.1);
+    }
+    
+    .icon-bubble svg {
+      width: 32px;
+      height: 32px;
+      stroke-width: 1.5px;
+    }
+    
+
+
+
+
+
+
+    .icon-bubble {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #fcfcfc;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      margin: 0 24px;
+      color: var(--text-main);
+      transition: transform 0.3s ease;
+    }
+
+    .icon-bubble:hover {
+      transform: translateY(-5px) scale(1.05);
+    }
+    
+    .icon-bubble svg {
+      width: 32px;
+      height: 32px;
+      stroke-width: 1.5px;
+    }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    .section-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--text-main);
+    }
+
+    
+    /* LOGO MARQUEE SECTION */
+    .logo-marquee-section {
+      background-color: #080807;
+      height: 400vh;
+      position: relative;
+      z-index: 12;
+    }
+    
+    .logo-sticky-wrapper {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #E6E4DF;
+    }
+
+    .logo-marquee-header {
+      position: absolute;
+      top: 15%;
+      left: 10%;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.5;
+    }
+
+    .logo-marquee-track {
+      display: flex;
+      gap: 15vw;
+      padding: 0 50vw; /* start offscreen right, end offscreen left */
+      align-items: center;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .logo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      opacity: 0.7;
+      transition: opacity 0.5s ease;
+      min-width: 200px;
+    }
+    
+    .logo-item:hover {
+      opacity: 1;
+    }
+
+    .logo-item img {
+      width: 180px;
+      height: auto;
+      filter: brightness(0) invert(0.8);
+    }
+
+    .logo-label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.3;
+    }
+
+    /* GAP SECTION (SCROLL ANIMATION) */
+    .gap-section {
+      height: 300vh;
+      position: relative;
+      z-index: 10;
+      background-color: #080807;
+      color: #FFFFFF;
+      margin-top: -100vh;
+    }
+
+    
+
+    .gap-sticky-container {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      padding: 0 48px;
+      z-index: 2;
+    }
+
+    .gap-text-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      font-size: 8rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    .gap-text-left, .gap-text-right {
+      position: relative;
+      z-index: 2;
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(3rem, 10vw, 11rem);
+      font-weight: 700;
+      white-space: nowrap;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      will-change: transform;
+      color: #FFFFFF;
+    }
+
+    .gap-center-media {
+      width: clamp(100px, 15vw, 250px);
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border-radius: 8px;
+      will-change: transform;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .crossfade-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: crossfade 15s infinite;
+    }
+    .crossfade-img:nth-child(1) { animation-delay: 0s; }
+    .crossfade-img:nth-child(2) { animation-delay: -12s; }
+    .crossfade-img:nth-child(3) { animation-delay: -9s; }
+    .crossfade-img:nth-child(4) { animation-delay: -6s; }
+    .crossfade-img:nth-child(5) { animation-delay: -3s; }
+
+    @keyframes crossfade {
+      0% { opacity: 1; }
+      13.33% { opacity: 1; }
+      20% { opacity: 0; }
+      93.33% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .gap-description {
+      position: absolute;
+      bottom: 15vh;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.7);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      padding: 0 24px;
+    }
+    
+    .gap-description.visible {
+      opacity: 1;
+    }
+
+    /* HOW IT WORKS (SELECTED WORK STYLE) */
+    .works-section {
+      padding: 80px 48px 160px;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .work-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 80px 0;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .work-content {
+      max-width: 650px;
+    }
+
+    .work-num {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .work-title {
+      font-size: clamp(3rem, 4vw, 4rem);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      font-weight: 500;
+    }
+
+    .work-desc {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .work-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 40px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .work-bullets li {
+      position: relative;
+      padding-left: 20px;
+      color: var(--text-main);
+      font-size: 1.15rem;
+      font-weight: 400;
+    }
+
+    .work-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+      font-weight: bold;
+    }
+
+    .work-visual {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--bg-light);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* Abstract Visuals for Mockups */
+    .abstract-visual {
+      width: 80%;
+      height: 80%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 100%);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 32px;
+    }
+
+    .av-line {
+      height: 24px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 4px;
+      width: 100%;
+    }
+    .av-line.short { width: 60%; }
+    .av-line.accent { background: rgba(0,0,0,0.15); width: 40%; }
+
+    .av-circle-wrap {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: auto;
+    }
+    
+    .av-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.05);
+    }
+
+    /* AUDIENCE SECTION */
+    .audience-section {
+      background: var(--bg-light);
+      padding: 160px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .audience-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 80px;
+    }
+
+    .audience-card {
+      padding: 48px;
+      background: var(--bg-dark);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .audience-card:hover {
+      border-color: rgba(0,0,0,0.2);
+    }
+
+    .audience-card h3 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .audience-card p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+    }
+
+    .audience-list {
+      list-style: none;
+    }
+
+    .audience-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .audience-list li::before {
+      content: '';
+      color: var(--text-muted);
+    }
+
+    .audience-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 120px 48px 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 120px;
+      flex-wrap: wrap;
+      gap: 48px;
+    }
+
+    .footer-cta h2 {
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: 1;
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+
+    .waitlist-form {
+      display: flex;
+      gap: 16px;
+      max-width: 500px;
+    }
+
+    .waitlist-input {
+      flex: 1;
+      background: var(--bg-light);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 100px;
+      padding: 16px 24px;
+      color: var(--text-main);
+      font-family: var(--font-main);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+      position: relative;
+      z-index: 10;
+    }
+
+    .waitlist-input:focus {
+      border-color: var(--text-main);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 48px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 991px) {
+      .work-item {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .audience-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .hero, .problem-section, .works-section, .audience-section, .footer { padding-left: 24px; padding-right: 24px; }
+      .hero { padding-top: 140px; }
+      .footer-top { flex-direction: column; align-items: flex-start; }
+      .waitlist-form { flex-direction: column; width: 100%; }
+    }
+
+    /* PRELOADER */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background-color: #E6E4DF;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1.2s cubic-bezier(0.8, 0, 0.2, 1), visibility 1.2s;
+    }
+    
+
+
+    .preloader-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: #2D2D2D;
+    }
+
+    .preloader-jp {
+      font-size: 2.2rem;
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(15px);
+      animation: preloaderFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    .preloader-en {
+      font-size: 3rem;
+      letter-spacing: 0.4em;
+      margin-right: -0.4em;
+      font-weight: 300;
+      opacity: 0;
+      transform: translateY(15px);
+      animation: preloaderFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    }
+
+    .preloader-emblem {
+      margin-top: 48px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(45, 45, 45, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      animation: preloaderFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+    }
+    
+    .preloader-emblem::after {
+      content: '';
+      font-size: 1rem;
+      color: #2D2D2D;
+    }
+
+    @keyframes preloaderFadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+
+    /* VERTICAL STACKED CARDS FOR WORKS SECTION */
+    .works-section {
+      padding: 120px 48px;
+      max-width: 1600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 20;
+      background-color: #F4F3F0; /* Must have background to cover previous sticky sections */
+    }
+    .works-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      margin-top: 40px;
+    }
+    .work-item {
+      position: sticky;
+      top: 120px;
+      height: calc(100vh - 140px);
+      background: #E6E4DF;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 24px;
+      padding: 40px 60px;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.03);
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 100px;
+      align-items: center;
+      margin-bottom: 40px;
+      will-change: transform;
+    }
+    .works-container .work-item:nth-child(1) { top: 120px; }
+    .works-container .work-item:nth-child(2) { top: 130px; }
+    .works-container .work-item:nth-child(3) { top: 140px; }
+    .works-container .work-item:nth-child(4) { top: 150px; }
+    .works-container .work-item:nth-child(5) { top: 160px; }
+    .works-container .work-item:nth-child(6) { top: 170px; }
+
+    
+    @media (max-width: 991px) {
+      .works-section { padding: 80px 24px; }
+      .work-item {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 40px 24px;
+        top: 100px;
+      }
+    }
+
+    /* QUOTE SECTION */
+    .quote-wrapper {
+      height: 200vh;
+      position: relative;
+      z-index: 1;
+      background-color: #080807;
+    }
+    .quote-section {
+      background-color: transparent;
+      padding: 160px 48px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      will-change: transform;
+      transform: translate3d(0,0,0);
+    }
+    .quote-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .quote-text {
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      
+      /* Scrub effect */
+      --progress: -20%;
+      background: linear-gradient(
+        110deg,
+        #ffffff var(--progress),
+        rgba(255, 255, 255, 0.15) calc(var(--progress) + 25%)
+      );
+      -webkit-background-clip: text;
+      color: transparent;
+      background-clip: text;
+    }
+    
+    @media (max-width: 768px) {
+      .quote-section {
+        padding: 120px 24px;
+        min-height: auto;
+      }
+    }
+
+    
+        /* BYMONOLOG GRAIN OVERLAY */
+    .noise-overlay {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("https://cdn.prod.website-files.com/68b652bbd6c64a44c8fe3e5e/692114faea9b602a766335ec_download.png");
+      background-repeat: repeat;
+      background-position: 0 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 1; /* ByMonolog uses 1 with color-dodge */
+      mix-blend-mode: color-dodge;
+      animation: grain-animation 0.5s steps(6) infinite;
+      will-change: transform;
+    }
+    
+    @keyframes grain-animation {
+      0%, 100% { transform: translate(0, 0); }
+      17% { transform: translate(-5%, -10%); }
+      33% { transform: translate(3%, -15%); }
+      50% { transform: translate(12%, 9%); }
+      67% { transform: translate(9%, 4%); }
+      83% { transform: translate(-1%, 7%); }
+    }
+    
+    @keyframes noise-transform {
+      0% { transform: translate3d(0, 0, 0); }
+      25% { transform: translate3d(-5%, 5%, 0); }
+      50% { transform: translate3d(-10%, -5%, 0); }
+      75% { transform: translate3d(5%, -10%, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise-overlay"></div>
+  
+  
+
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="preloader-content">
+      
+      <div class="preloader-en">NAGI</div>
+      <div class="preloader-emblem"></div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="#" class="nav-logo">Nagi</a>
+    <ul class="nav-links">
+      <li><a href="#problem">The Gap</a></li>
+      <li><a href="#works">How it works</a></li>
+      <li><a href="#audience">Who it's for</a></li>
+    </ul>
+    <a href="#waitlist" class="btn btn-primary">Join Waitlist</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    
+    <div class="hero-content">
+      
+      <h1 class="hero-title fade-in">
+        <span class="type-text" data-value="Calm in the ocean">Calm in the ocean</span><br>
+        <span class="type-text" data-value="of research.">of research.</span>
+      </h1>
+      <div class="hero-meta fade-in" style="transition-delay: 0.1s;">
+        <p class="hero-subtitle">
+          An AI-native research environment. Google Scholar shows you 50,000 papers. Nagi shows you the 10 that matter and helps you actually understand them.
+        </p>
+        <a href="#waitlist" class="hero-badge">
+          <span class="pulse-dot"></span> 200+ researchers already waiting &rarr;
+        </a>
+    </div>
+  </section>
+
+  <!-- ARC SECTION -->
+  <section class="arc-section">
+    <div class="arc-track-wrap" id="arcTrackWrap">
+      <div class="arc-track">
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="book-open"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="brain"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="search"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="highlighter"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="network"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="library"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="lightbulb"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="file-text"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="microscope"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="bookmark"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="graduation-cap"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="compass"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="quote"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="share-2"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="sparkles"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="layers"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="glasses"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="target"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="archive"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="pen-tool"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="waypoints"></i></div></div>
+      </div>
+      <div class="arc-track">
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="book-open"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="brain"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="search"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="highlighter"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="network"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="library"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="lightbulb"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="file-text"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="microscope"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="bookmark"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="graduation-cap"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="compass"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="quote"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="share-2"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="sparkles"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="layers"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="glasses"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="target"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="archive"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="pen-tool"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="waypoints"></i></div></div>
+      </div>
+      <div class="arc-track">
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="book-open"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="brain"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="search"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="highlighter"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="network"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="library"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="lightbulb"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="file-text"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="microscope"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="bookmark"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="graduation-cap"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="compass"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="quote"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="share-2"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="sparkles"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="layers"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="glasses"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="target"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="archive"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="pen-tool"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="waypoints"></i></div></div>
+      </div>
+      <div class="arc-track">
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="book-open"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="brain"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="search"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="highlighter"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="network"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="library"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="lightbulb"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="file-text"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="microscope"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="bookmark"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="graduation-cap"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="compass"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="quote"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="share-2"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="sparkles"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="layers"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="glasses"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="target"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="archive"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="pen-tool"></i></div></div>
+        <div class="arc-icon-wrapper"><div class="icon-bubble"><i data-lucide="waypoints"></i></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- QUOTE SECTION -->
+  <div class="quote-wrapper">
+    <section class="quote-section">
+      <div class="quote-container">
+        <h2 class="quote-text">
+          Researchers don't fail because<br>
+          they aren't smart enough.<br>
+          They fail because nobody showed<br>
+          them which 10 papers matter<br>
+          out of 50,000.<br><br>
+          That gap costs more than grades.<br>
+          It costs the ideas that never<br>
+          become discoveries.
+        </h2>
+      </div>
+    </section>
+  </div>
+
+  <!-- PROBLEM SECTION (SCROLL ANIMATION) -->
+  
+  <!-- LOGO MARQUEE SECTION -->
+  <section class="gap-section" id="problem">
+    <div class="gap-sticky-container">
+      <div class="gap-text-row">
+        <div class="gap-text-left">WE CLOSE</div>
+        <div class="gap-center-media">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg" alt="Einstein" class="crossfade-img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/Tesla_circa_1890.jpeg" alt="Tesla" class="crossfade-img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Werner_Heisenberg_Portrait_%283x4_cropped%29.jpg/960px-Werner_Heisenberg_Portrait_%283x4_cropped%29.jpg" alt="Heisenberg" class="crossfade-img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Stephen_Hawking.StarChild.jpg" alt="Hawking" class="crossfade-img">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Oppenheimer_%28cropped%29.jpg/960px-Oppenheimer_%28cropped%29.jpg" alt="Oppenheimer" class="crossfade-img">
+        </div>
+        <div class="gap-text-right">THAT GAP</div>
+      </div>
+      <div class="gap-description">
+        "50,000 papers exist on any topic. Almost none of them get read properly. Nagi changes that."
+    </div>
+  </section>
+
+
+
+  <!-- WORKS / HOW IT WORKS -->
+  <section class="works-section" id="works">
+    <div class="section-label fade-in">The Solution</div>
+    <div class="works-container">
+    
+    <div class="work-item">
+      <div class="work-content fade-in">
+        <div class="work-num">01 / Discover</div>
+        <h3 class="work-title">Find the papers that actually matter</h3>
+        <p class="work-desc">Enter any research topic and Nagi builds you a curated map of the 8–12 most important papers in that space. Ranked by relevance. Each one explained in plain language — what it is, why it matters, and whether you should read it first.<br><br>No more scrolling through 50,000 results. No more random bookmarking. Just the papers that move the needle.</p>
+        <ul class="work-bullets">
+          <li>Ranked by relevance to your exact topic</li>
+          <li>Plain language summary for each paper</li>
+          <li>Why each paper matters explained</li>
+          <li>What to read first — and what to skip</li>
+          <li>Updated with recent publications</li>
+        </ul>
+      </div>
+      <div class="work-visual fade-in">
+        <div class="abstract-visual">
+          <div class="av-line accent"></div>
+          <div class="av-line"></div>
+          <div class="av-line short"></div>
+          <div class="av-circle-wrap">
+            <div class="av-circle"></div>
+            <div class="av-line" style="width: 40px;"></div>
+            <div class="av-circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-content fade-in">
+        <div class="work-num">02 / Understand</div>
+        <h3 class="work-title">Every paper in plain language</h3>
+        <p class="work-desc">Open any paper inside Nagi and get a complete structured breakdown — in language that actually makes sense. No jargon walls. No re-reading the same sentence four times.<br><br>You'll know exactly what the researchers did, why it matters, what the limitations are, and how to think about it critically.</p>
+        <ul class="work-bullets">
+          <li>What they did — methodology simplified</li>
+          <li>Why it matters — real world significance</li>
+          <li>Key terms defined in plain language</li>
+          <li>Limitations and weaknesses surfaced</li>
+          <li>How to cite it correctly</li>
+        </ul>
+      </div>
+      <div class="work-visual fade-in">
+        <div class="abstract-visual">
+          <div style="display: flex; gap: 16px; height: 100%;">
+            <div style="flex: 1; background: rgba(0,0,0,0.05); border-radius: 8px;"></div>
+            <div style="flex: 2; display: flex; flex-direction: column; gap: 16px;">
+              <div class="av-line accent"></div>
+              <div class="av-line"></div>
+              <div class="av-line"></div>
+              <div class="av-line short"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-content fade-in">
+        <div class="work-num">03 / Synthesize</div>
+        <h3 class="work-title">See how it all connects</h3>
+        <p class="work-desc">Research doesn't exist in isolation. Papers build on each other, contradict each other, and fill each other's gaps. Nagi shows you the landscape — who said what, who disagrees, and where the field is heading.<br><br>Stop reading papers in isolation. Start understanding the field.</p>
+        <ul class="work-bullets">
+          <li>Visual map of how papers relate</li>
+          <li>Where researchers agree and disagree</li>
+          <li>Which papers are foundational vs recent</li>
+          <li>How ideas have evolved over time</li>
+          <li>The debates that are still unresolved</li>
+        </ul>
+      </div>
+      <div class="work-visual fade-in">
+        <div class="abstract-visual" style="align-items: center; justify-content: center;">
+          <div class="av-circle" style="width: 64px; height: 64px; border: 2px solid rgba(0,0,0,0.1); background: var(--bg-light);"></div>
+          <div style="display: flex; gap: 40px; margin-top: -10px;">
+            <div class="av-circle" style="width: 32px; height: 32px;"></div>
+            <div class="av-circle" style="width: 32px; height: 32px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-content fade-in">
+        <div class="work-num">04 / Discover gaps</div>
+        <h3 class="work-title">Find what nobody has researched yet</h3>
+        <p class="work-desc">The most valuable thing in research isn't what exists — it's what doesn't. Nagi surfaces the unanswered questions, the understudied areas, and the white spaces in any field.<br><br>For students writing proposals. For researchers looking for their next contribution. For anyone who wants to do work that actually adds something new.</p>
+        <ul class="work-bullets">
+          <li>Unanswered questions surfaced automatically</li>
+          <li>Understudied areas highlighted</li>
+          <li>White spaces in the literature identified</li>
+          <li>Perfect for research proposals</li>
+          <li>Helps you position your own contribution</li>
+        </ul>
+      </div>
+      <div class="work-visual fade-in">
+        <div class="abstract-visual" style="align-items: center; justify-content: center;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="av-circle" style="width: 48px; height: 48px;"></div>
+            <div class="av-circle" style="width: 48px; height: 48px;"></div>
+            <div class="av-circle" style="width: 48px; height: 48px;"></div>
+            <div class="av-circle" style="width: 48px; height: 48px; border: 2px dashed rgba(0,0,0,0.2); background: var(--bg-light);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-content fade-in">
+        <div class="work-num">05 / Write</div>
+        <h3 class="work-title">Go from papers to writing — instantly</h3>
+        <p class="work-desc">Once you understand your field, Nagi helps you structure it. Generate a literature review outline from your paper set — organised by theme, argument, and narrative flow.<br><br>Not a summary. A thinking structure you can actually write from. The difference between a shallow lit review and a great one.</p>
+        <ul class="work-bullets">
+          <li>Outline generated from your paper set</li>
+          <li>Organised by theme and argument</li>
+          <li>Narrative flow built in</li>
+          <li>Gaps and transitions highlighted</li>
+          <li>Export to any format</li>
+        </ul>
+      </div>
+      <div class="work-visual fade-in">
+        <div class="abstract-visual" style="align-items: center; justify-content: center;">
+          <div style="display: flex; flex-direction: column; gap: 12px; width: 60%;">
+            <div class="av-line" style="width: 100%;"></div>
+            <div class="av-line" style="width: 80%; margin-left: 20px;"></div>
+            <div class="av-line" style="width: 60%; margin-left: 20px;"></div>
+            <div class="av-line" style="width: 100%; margin-top: 12px;"></div>
+            <div class="av-line" style="width: 70%; margin-left: 20px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div class="work-content fade-in">
+        <div class="work-num">06 / Organise</div>
+        <h3 class="work-title">Your research — organised and alive</h3>
+        <p class="work-desc">Save papers, tag them by topic, track what you've read, what you've understood, and what you still need to revisit. Your personal research library that grows with you.<br><br>Never lose a paper. Never forget what it said. Never start from scratch on a topic you've already explored.</p>
+        <ul class="work-bullets">
+          <li>Save any paper in one click</li>
+          <li>Tag and organise by topic or project</li>
+          <li>Track reading and understanding progress</li>
+          <li>Add your own notes and highlights</li>
+          <li>Access from anywhere</li>
+        </ul>
+      </div>
+      <div class="work-visual fade-in">
+        <div class="abstract-visual" style="align-items: flex-end; justify-content: center;">
+          <div style="display: flex; gap: 16px; align-items: flex-end; height: 120px;">
+            <div style="width: 32px; height: 100%; background: rgba(0,0,0,0.05); border-radius: 6px 6px 0 0;"></div>
+            <div style="width: 32px; height: 70%; background: rgba(0,0,0,0.1); border-radius: 6px 6px 0 0;"></div>
+            <div style="width: 32px; height: 40%; background: var(--text-main); border-radius: 6px 6px 0 0;"></div>
+            <div style="width: 32px; height: 90%; background: rgba(0,0,0,0.05); border-radius: 6px 6px 0 0;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE SECTION -->
+  <section class="audience-section" id="audience">
+    <div class="audience-inner">
+      <div class="section-label fade-in">Who it's for</div>
+      <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; max-width: 800px; margin-bottom: 24px;" class="fade-in">
+        Built for anyone who engages with knowledge seriously.
+      </h2>
+      
+      <div class="audience-grid">
+        <div class="audience-card fade-in">
+          <h3>Engineering Students</h3>
+          <p>Writing your first research paper or literature review with a deadline and zero guidance. Nagi gets you from a topic to a structured understanding — fast.</p>
+          <ul class="audience-list">
+            <li>First research paper or literature review</li>
+            <li>Project reports and thesis chapters</li>
+            <li>Conference paper submissions</li>
+          </ul>
+        </div>
+        <div class="audience-card fade-in" style="transition-delay: 0.1s;">
+          <h3>Independent Researchers</h3>
+          <p>Navigating a field without institutional infrastructure. No library access, no research group. Nagi is your research environment.</p>
+          <ul class="audience-list">
+            <li>Self-directed deep dives</li>
+            <li>Staying current without drowning</li>
+            <li>Building logical reading lists</li>
+          </ul>
+        </div>
+        <div class="audience-card fade-in">
+          <h3>PhD & Graduate Students</h3>
+          <p>Literature reviews that take weeks. Research gaps that are hard to see. Nagi gives you a bird's eye view of your entire field.</p>
+          <ul class="audience-list">
+            <li>Comprehensive literature reviews</li>
+            <li>Identifying research gaps</li>
+            <li>Synthesis across hundreds of papers</li>
+          </ul>
+        </div>
+        <div class="audience-card fade-in" style="transition-delay: 0.1s;">
+          <h3>Every Knowledge Worker</h3>
+          <p>Developers implementing papers. Analysts tracking research. Journalists covering science. Anyone who needs to understand what the research says.</p>
+          <ul class="audience-list">
+            <li>Implementing research into products</li>
+            <li>Evidence-based decision making</li>
+            <li>Understanding technical fields quickly</li>
+          </ul>
+        </div>
+    </div>
+  </section>
+
+  <!-- FOOTER / WAITLIST -->
+  <footer class="footer" id="waitlist">
+    <div class="footer-top">
+      <div class="footer-cta fade-in">
+        <h2>Be the first to<br>navigate with Nagi.</h2>
+        <form class="waitlist-form">
+          <input type="email" class="waitlist-input" placeholder="your@email.com" required>
+          <button type="submit" class="btn btn-primary">Join Waitlist</button>
+        </form>
+      </div>
+      <div class="footer-contact fade-in" style="transition-delay: 0.1s;">
+        <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Contact us</div>
+        <a href="mailto:hello@nagi.ai" style="color: var(--text-main); text-decoration: none; font-size: 1.2rem;">hello@nagi.ai</a>
+      </div>
+    </div>
+    <div class="footer-bottom fade-in">
+      <div class="footer-logo">Nagi © 2026</div>
+      <div class="footer-links">
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    // Preloader and Animations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Preloader transition
+      setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+      }, 3000);
+
+      
+      // Logo Marquee Horizontal Scroll
+      const logoSection = document.querySelector('.logo-marquee-section');
+      const logoTrack = document.querySelector('.logo-marquee-track');
+
+      if (logoSection && logoTrack) {
+        window.addEventListener('scroll', () => {
+          const rect = logoSection.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          
+          // Progress from 0 (top enters viewport bottom) to 1 (bottom leaves viewport top)
+          // Since it's sticky, we care about when the wrapper sticks to when it un-sticks.
+          // It sticks when rect.top == 0. It un-sticks when rect.bottom == windowHeight.
+          const maxScroll = rect.height - windowHeight;
+          let progress = -rect.top / maxScroll;
+          
+          // Clamp
+          if (progress < 0) progress = 0;
+          if (progress > 1) progress = 1;
+          
+          // Calculate track width
+          const trackWidth = logoTrack.scrollWidth;
+          // We want to translate from 0 to -(trackWidth - windowWidth)
+          const maxTranslate = trackWidth - window.innerWidth;
+          
+          logoTrack.style.transform = 	ranslateX(px);
+        });
+      }
+
+      // Gap Section Scroll Animation
+      const gapSection = document.querySelector('.gap-section');
+      const gapLeft = document.querySelector('.gap-text-left');
+      const gapRight = document.querySelector('.gap-text-right');
+      const gapMediaContainer = document.querySelector('.gap-center-media');
+      const gapDesc = document.querySelector('.gap-description');
+
+      if (gapSection) {
+        window.addEventListener('scroll', () => {
+          const rect = gapSection.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          let progress = -rect.top / (rect.height - windowHeight);
+          progress = Math.max(0, Math.min(1, progress));
+          
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          
+          const leftOffset = -100 * (1 - easeProgress);
+          const rightOffset = 100 * (1 - easeProgress);
+          const mediaScale = 0.4 + 0.6 * easeProgress;
+          
+          if (gapLeft) gapLeft.style.transform = `translateX(${leftOffset}vw)`;
+          if (gapRight) gapRight.style.transform = `translateX(${rightOffset}vw)`;
+          if (gapMediaContainer) gapMediaContainer.style.transform = `scale(${mediaScale})`;
+          
+          if (progress > 0.8 && gapDesc) {
+            gapDesc.classList.add('visible');
+          } else if (gapDesc) {
+            gapDesc.classList.remove('visible');
+          }
+        });
+      }
+
+      // Intersection Observer for scroll animations
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            // Optional: stop observing once animated
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.fade-in, .text-reveal').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Waitlist form handling
+      const form = document.querySelector('.waitlist-form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = form.querySelector('.waitlist-input');
+        const btn = form.querySelector('.btn');
+        
+        input.value = '';
+        input.placeholder = '✓ You\'re on the list.';
+        input.style.borderColor = 'rgba(0,0,0,0.6)';
+        btn.textContent = 'Joined';
+        btn.style.backgroundColor = '#2D2D2D';
+        btn.style.color = '#E6E4DF';
+      });
+
+      // Typewriter Effect with Blinking Cursor
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .type-cursor { font-weight: 300; color: var(--text-main); display: inline-block; transform: translateY(-0.05em); margin-left: 2px; }
+        .type-cursor.blink { animation: cursorBlink 1s step-end infinite; }
+        @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+      `;
+      document.head.appendChild(style);
+
+      const lines = document.querySelectorAll('.type-text');
+      lines.forEach(line => line.innerHTML = ''); // Clear initially
+      
+      let currentLine = 0;
+      let currentChar = 0;
+      const speed = 40; // ms per char
+
+      function typeWriter() {
+        if (currentLine < lines.length) {
+          const el = lines[currentLine];
+          const text = el.getAttribute('data-value');
+          
+          if (currentChar < text.length) {
+            el.innerHTML = text.substring(0, currentChar + 1) + '<span class="type-cursor">|</span>';
+            currentChar++;
+            setTimeout(typeWriter, speed);
+          } else {
+            // Finished this line
+            currentLine++;
+            currentChar = 0;
+            if (currentLine < lines.length) {
+              // Remove cursor from finished line
+              el.innerHTML = text;
+              lines[currentLine].innerHTML = '<span class="type-cursor">|</span>';
+              setTimeout(typeWriter, speed);
+            } else {
+              // Last line finished, make cursor blink
+              el.innerHTML = text + '<span class="type-cursor blink">|</span>';
+            }
+          }
+        }
+      }
+
+      // Start exactly after preloader fades (3200ms)
+      setTimeout(() => {
+        if (lines.length > 0) {
+          lines[0].innerHTML = '<span class="type-cursor blink">|</span>';
+          setTimeout(typeWriter, 400); // Small pause before typing starts
+        }
+      }, 3200);
+    });
+
+
+
+
+      // Quote Text Scrub Effect
+      const quoteWrapper = document.querySelector('.quote-wrapper');
+      const quoteText = document.querySelector('.quote-text');
+
+      if (quoteWrapper && quoteText) {
+        window.addEventListener('scroll', () => {
+          const rect = quoteWrapper.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          
+          // We want the scrub to happen entirely while the wrapper is scrolling.
+          // rect.top starts at windowHeight (bottom of screen) and goes to -windowHeight (scrolled past)
+          const start = windowHeight * 0.5; // Start scrubbing when wrapper is halfway up the screen
+          const end = -windowHeight * 0.5; // Finish scrubbing when wrapper is scrolled halfway out
+          
+          let progress = 1 - ((rect.top - end) / (start - end));
+          if (progress < -0.2) progress = -0.2;
+          if (progress > 1.2) progress = 1.2;
+          
+          quoteText.style.setProperty('--progress', (progress * 100) + '%');
+          
+          // Zoom out effect as gap section slides up over it
+          let overlapProgress = 0;
+          if (rect.top < -windowHeight) {
+            overlapProgress = (-rect.top - windowHeight) / windowHeight;
+            if (overlapProgress > 1) overlapProgress = 1;
+          }
+          
+          const quoteSection = document.querySelector('.quote-section');
+          if (quoteSection) {
+            const scale = 1 - (0.05 * overlapProgress); // 1 to 0.95
+            const opacity = 1 - (0.6 * overlapProgress); // 1 to 0.4
+            quoteSection.style.transform = `scale(${scale})`;
+            quoteSection.style.opacity = opacity;
+          }
+        });
+      }
+
+    lucide.createIcons();
+
+      // Arc Scroll Interaction
+      const arcTrackWrap = document.getElementById('arcTrackWrap');
+      const arcWrappers = document.querySelectorAll('.arc-icon-wrapper');
+      
+      let arcPos = 0;
+      let arcScrollDiff = 0;
+      let lastArcScrollY = window.scrollY;
+
+      if (arcTrackWrap) {
+        window.addEventListener('scroll', () => {
+          arcScrollDiff = window.scrollY - lastArcScrollY;
+          lastArcScrollY = window.scrollY;
+        });
+
+        function animateArc() {
+          // move anti direction on scroll down
+          arcPos -= 0.15 + (arcScrollDiff * 0.12);
+
+          // 21 icons * 128px (80w + 48m) = 2688px per track
+          if (arcPos <= -2688) arcPos += 2688;
+          if (arcPos >= 0) arcPos -= 2688;
+
+          // Diagonal pathway rotation + horizontal movement
+          arcTrackWrap.style.transform = `rotate(-4deg) translate3d(${arcPos}px, 0, 0)`;
+
+          // Parabola calculation for each icon to form an arc
+          const centerX = window.innerWidth / 2;
+          
+          arcWrappers.forEach(wrapper => {
+            const rect = wrapper.getBoundingClientRect();
+            // We use the raw center of the element on screen
+            const iconCenterX = rect.left + rect.width / 2;
+            const dist = iconCenterX - centerX;
+            
+            // S-curve (sine wave)
+            // 200 controls the horizontal stretch (wavelength), 60 controls height
+            const y = Math.sin(dist / 200) * 60; 
+            
+            wrapper.style.transform = `translateY(${y}px)`;
+          });
+
+          arcScrollDiff *= 0.9;
+          if (Math.abs(arcScrollDiff) < 0.1) arcScrollDiff = 0;
+
+          requestAnimationFrame(animateArc);
+        }
+        
+        animateArc();
+      }
+
+
+</script>
+</body>
+</html>
