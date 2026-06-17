@@ -4036,4 +4036,220 @@
       border-radius: 50%;
       background: var(--accent);
     }
+
+    /* ==========================================================================
+       MOBILE NAVIGATION & INTERACTIVE OVERLAY
+       ========================================================================== */
+
+    /* Mobile Toggle Button */
+    .nav-mobile-toggle {
+      display: none;
+      position: relative;
+      width: 24px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      z-index: 1001;
+    }
+
+    .nav-mobile-toggle .bar {
+      position: absolute;
+      width: 20px;
+      height: 2px;
+      background-color: #1d1d1f;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+      border-radius: 1px;
+    }
+
+    .navbar.navbar-dark .nav-mobile-toggle .bar {
+      background-color: #f5f5f7;
+    }
+
+    .nav-mobile-toggle .bar:first-child {
+      transform: translateY(-4px);
+    }
+
+    .nav-mobile-toggle .bar:last-child {
+      transform: translateY(4px);
+    }
+
+    /* Active Hamburger State (Transform to X) */
+    .nav-mobile-toggle.active .bar:first-child {
+      transform: translateY(0) rotate(45deg);
+    }
+
+    .nav-mobile-toggle.active .bar:last-child {
+      transform: translateY(0) rotate(-45deg);
+    }
+
+    /* Mobile Drawer Menu */
+    .nav-mobile-menu {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 56px);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      z-index: 999;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      padding: 40px 24px 30px;
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+
+    .nav-mobile-menu.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Sibling connection: adapt mobile menu colors if navbar is dark theme */
+    .navbar.navbar-dark + .nav-mobile-menu {
+      background: rgba(9, 9, 11, 0.94);
+      border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Mobile Navigation Links */
+    .nav-mobile-links {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .nav-mobile-links a {
+      font-family: var(--font-main);
+      font-size: 20px;
+      font-weight: 600;
+      color: #1d1d1f;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+      display: block;
+    }
+
+    .navbar.navbar-dark + .nav-mobile-menu .nav-mobile-links a {
+      color: #f5f5f7;
+    }
+
+    .nav-mobile-links a:hover {
+      opacity: 0.7;
+    }
+
+    /* Mobile CTA in Footer */
+    .nav-mobile-footer {
+      margin-top: auto;
+      width: 100%;
+      padding-bottom: 20px;
+    }
+
+    .nav-mobile-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #131314;
+      color: #ffffff;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      text-align: center;
+    }
+
+    .navbar.navbar-dark + .nav-mobile-menu .nav-mobile-cta {
+      background: #ffffff;
+      color: #131314;
+    }
+
+    .nav-mobile-cta:hover {
+      background: #2c2c2e;
+      transform: translateY(-0.5px);
+    }
+
+    .navbar.navbar-dark + .nav-mobile-menu .nav-mobile-cta:hover {
+      background: #e8e8ed;
+    }
+
+    .nav-mobile-cta i {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.2px;
+    }
+
+    /* Dynamic Button Text Swapping & Responsive Overrides */
+    .btn-text-mobile {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav-mobile-toggle {
+        display: flex;
+      }
+      /* Adjust mobile mockup elements to fit screens nicer */
+      .sol-mockup-wrapper {
+        width: 95%;
+        height: 95%;
+      }
+      .sol-graph-area {
+        transform: scale(0.85);
+        transform-origin: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .btn-text-desktop {
+        display: none;
+      }
+      .btn-text-mobile {
+        display: inline;
+      }
+      .nav-download-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+        gap: 4px;
+      }
+      .nav-download-icon {
+        width: 12px;
+        height: 12px;
+      }
+      .navbar {
+        padding: 0 16px;
+      }
+      /* Scale mockups slightly on very small screens to avoid horizontal clipping */
+      .sol-mockup-body {
+        padding: 12px !important;
+      }
+      .sol-card-list {
+        gap: 6px !important;
+      }
+      .sol-card {
+        padding: 8px 10px !important;
+      }
+      .sol-card-title {
+        font-size: 10px !important;
+      }
+      .sol-card-badge {
+        font-size: 8px !important;
+      }
+      .sol-reader-title {
+        font-size: 14px !important;
+      }
+      .sol-reader-text {
+        font-size: 9.5px !important;
+      }
+    }
   

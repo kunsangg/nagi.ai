@@ -1002,6 +1002,63 @@
         }, { passive: true });
       }
 
+      // --- MOBILE NAVIGATION DRAWER TOGGLE ---
+      const mobileToggle = document.getElementById('mobile-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileCtaBtn = document.getElementById('mobile-cta-btn');
+      const mobileNavLinks = document.querySelectorAll('.nav-mobile-links a');
+
+      if (mobileToggle && mobileMenu) {
+        // Toggle mobile menu on click
+        mobileToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          mobileToggle.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+          
+          // Disable body scroll when menu is active
+          if (mobileMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+          } else {
+            document.body.style.overflow = '';
+          }
+        });
+
+        // Close mobile menu on link click
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        });
+
+        // Mobile CTA clicks - open Early Access modal
+        if (mobileCtaBtn) {
+          mobileCtaBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Close mobile drawer
+            mobileToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Open Early Access modal
+            if (typeof openEAModal === 'function') {
+              openEAModal(e);
+            }
+          });
+        }
+        
+        // Close menu on resize to desktop width
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+            mobileToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        });
+      }
+
 
 
 
