@@ -21,12 +21,10 @@
     html {
       font-size: 16px;
       scroll-behavior: smooth;
-      scroll-snap-type: y proximity;
     }
 
-    /* CSS Scroll Snapping Classes */
+    /* CSS Scroll Snapping Classes - Disabled for natural scrolling, keeping margins for anchor offsets */
     .snap-section {
-      scroll-snap-align: start;
       scroll-margin-top: 106px; /* Offset for fixed navbar */
     }
     .hero.snap-section {
@@ -3329,7 +3327,7 @@
       display: flex;
       gap: 12px;
       width: max-content;
-      animation: photoMarqueeLinear 35s linear infinite;
+      animation: photoMarqueeLinear 125s linear infinite;
     }
 
     body.js-marquee-active .photo-scroll-track {

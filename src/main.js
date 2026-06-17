@@ -946,7 +946,7 @@
             { transform: `translate3d(-${translationDistance}px, 0, 0)` }
           ];
           
-          const speed = 142; // px per second
+          const speed = 40; // px per second
           const duration = (translationDistance / speed) * 1000;
           
           const anim = scrollTrack.animate(keyframes, {
@@ -964,42 +964,6 @@
             anim.playbackRate = 1.0; // normal speed
           });
         }
-      }
-
-      // --- MOTION BLUR SCROLL EFFECT ---
-      const scrollWrapper = document.getElementById('scroll-wrapper');
-      if (scrollWrapper) {
-        let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
-        let lastScrollTime = Date.now();
-        let blurTimeout = null;
-
-        window.addEventListener('scroll', () => {
-          const scrollTop = window.scrollY || document.documentElement.scrollTop;
-          const scrollTime = Date.now();
-
-          const deltaY = Math.abs(scrollTop - lastScrollTop);
-          const deltaT = Math.max(1, scrollTime - lastScrollTime);
-          const speed = deltaY / deltaT; // pixels per millisecond
-
-          // Calculate motion blur amount (max 2px blur for a subtle, premium effect)
-          const blurAmount = Math.min(2, speed * 0.8);
-
-          if (blurAmount > 0.5) {
-            scrollWrapper.style.transition = 'filter 0.08s ease-out';
-            scrollWrapper.style.filter = `blur(${blurAmount.toFixed(1)}px)`;
-          } else {
-            scrollWrapper.style.filter = 'none';
-          }
-
-          lastScrollTop = scrollTop;
-          lastScrollTime = scrollTime;
-
-          // Clean up blur when scroll stops
-          clearTimeout(blurTimeout);
-          blurTimeout = setTimeout(() => {
-            scrollWrapper.style.filter = 'none';
-          }, 100);
-        }, { passive: true });
       }
 
       // --- MOBILE NAVIGATION DRAWER TOGGLE ---
