@@ -74,25 +74,6 @@
       const kineticSlides = document.querySelectorAll('.kinetic-slide');
       const screenHeroText = document.getElementById('screen-hero-text');
       
-      // Top-Left NAGI Logo Animation
-      const navLogoText = document.getElementById('nav-logo-anim-text');
-      const navLogoWords = [".research", ".discovery", ".clarity", ".direction"];
-      let navLogoIndex = 0;
-      
-      if (navLogoText) {
-        navLogoText.textContent = navLogoWords[0];
-        setInterval(() => {
-          navLogoText.style.opacity = '0';
-          navLogoText.style.transform = 'translateY(4px)';
-          setTimeout(() => {
-            navLogoIndex = (navLogoIndex + 1) % navLogoWords.length;
-            navLogoText.textContent = navLogoWords[navLogoIndex];
-            navLogoText.style.opacity = '0.6';
-            navLogoText.style.transform = 'translateY(0)';
-          }, 300);
-        }, 3000);
-      }
-      
       let currentSlideIndex = 0;
       let slideTimeout = null;
       let isIntroFinished = false;
@@ -223,36 +204,8 @@
         scrollContainer.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         stickyFrame.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
-        // Navbar theme toggle based on background depth of current viewport section
-        const detectionY = 43; // Midpoint of navbar
-        const sections = [
-          { selector: '.home-hero', theme: 'dynamic-hero' },
-          { selector: '.info-showcase', theme: 'light' },
-          { selector: '.photo-scroll-section', theme: 'light' },
-          { selector: '.quote-section', theme: 'dark' },
-          { selector: '.gap-section', theme: 'dark' },
-          { selector: '.works-section', theme: 'dark' },
-          { selector: '.audience-section', theme: 'dark' },
-          { selector: '.footer', theme: 'dark' }
-        ];
-
-        let activeTheme = 'light';
-        for (const sec of sections) {
-          const el = document.querySelector(sec.selector);
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            if (rect.top <= detectionY && rect.bottom >= detectionY) {
-              if (sec.theme === 'dynamic-hero') {
-                activeTheme = (p > 0.45) ? 'dark' : 'light';
-              } else {
-                activeTheme = sec.theme;
-              }
-              break;
-            }
-          }
-        }
-
-        if (activeTheme === 'dark') {
+        // Navbar theme toggle based on background depth
+        if (p > 0.45) {
           navbar.classList.add('navbar-dark');
         } else {
           navbar.classList.remove('navbar-dark');
@@ -440,24 +393,18 @@
 
       // Waitlist form handling
       const form = document.querySelector('.waitlist-form');
-      if (form) {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const input = form.querySelector('.waitlist-input');
-          const btn = form.querySelector('.btn');
-          
-          if (input) {
-            input.value = '';
-            input.placeholder = '✓ You\'re on the list.';
-            input.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-          }
-          if (btn) {
-            btn.textContent = 'Joined';
-            btn.style.backgroundColor = '#2D2D2D';
-            btn.style.color = '#E6E4DF';
-          }
-        });
-      }
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = form.querySelector('.waitlist-input');
+        const btn = form.querySelector('.btn');
+        
+        input.value = '';
+        input.placeholder = '✓ You\'re on the list.';
+        input.style.borderColor = 'rgba(0,0,0,0.6)';
+        btn.textContent = 'Joined';
+        btn.style.backgroundColor = '#2D2D2D';
+        btn.style.color = '#E6E4DF';
+      });
 
 
     });
@@ -715,7 +662,7 @@
  
         // Update tab title
         const titles = {
-          1: "Nagi: Showcase",
+          1: "Nagi: Search",
           2: "Nagi: Research Map",
           3: "Nagi: Paper Detail",
           4: "Nagi: Field Connections",
@@ -852,155 +799,7 @@
         });
       }
 
-      if (typeof lucide !== 'undefined') {
-        try {
-          lucide.createIcons();
-        } catch (e) {
-          console.warn('Lucide icons creation failed:', e);
-        }
-      }
-
-      // --- EARLY ACCESS MODAL HANDLER ---
-      const eaModal = document.getElementById('early-access-modal');
-      const eaCloseBtn = document.getElementById('ea-modal-close-btn');
-      const eaForm = document.getElementById('ea-modal-form-el');
-      const eaSuccess = document.getElementById('ea-modal-success-el');
-      const eaSuccessCloseBtn = document.getElementById('ea-success-close-btn-el');
-      const eaSuccessEmail = document.getElementById('ea-success-email');
-
-      // Target nav links and download button
-      const navLinksEls = document.querySelectorAll('.nav-links a');
-      const downloadBtnEl = document.querySelector('.nav-download-btn');
-
-      function openEAModal(e) {
-        if (e) e.preventDefault();
-        if (eaModal) {
-          eaModal.classList.add('active');
-          if (eaForm) eaForm.style.display = 'flex';
-          if (eaSuccess) eaSuccess.style.display = 'none';
-        }
-      }
-
-      function closeEAModal() {
-        if (eaModal) {
-          eaModal.classList.remove('active');
-        }
-      }
-
-      if (downloadBtnEl) {
-        downloadBtnEl.addEventListener('click', openEAModal);
-      }
-
-
-      if (eaCloseBtn) {
-        eaCloseBtn.addEventListener('click', closeEAModal);
-      }
-
-      if (eaSuccessCloseBtn) {
-        eaSuccessCloseBtn.addEventListener('click', closeEAModal);
-      }
-
-      // Close modal on clicking outside card
-      if (eaModal) {
-        eaModal.addEventListener('click', (e) => {
-          if (e.target === eaModal) {
-            closeEAModal();
-          }
-        });
-      }
-
-      if (eaForm) {
-        eaForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const emailInput = document.getElementById('ea-email');
-          if (emailInput && eaSuccessEmail) {
-            eaSuccessEmail.textContent = emailInput.value;
-          }
-          eaForm.style.display = 'none';
-          if (eaSuccess) {
-            eaSuccess.style.display = 'flex';
-          }
-        });
-      }
-
-      // Advanced horizontal marquee with smooth, slow drift on hover (Web Animations API)
-      const scrollTrack = document.querySelector('.photo-scroll-track');
-      const marqueeContainer = document.querySelector('.photo-scroll-marquee');
-      if (scrollTrack && marqueeContainer) {
-        const cards = Array.from(scrollTrack.children);
-        if (cards.length > 1) {
-          const halfCount = Math.floor(cards.length / 2);
-          
-          // Add class to body to override CSS keyframe animations to prevent conflicts
-          document.body.classList.add('js-marquee-active');
-          
-          // Calculate exact loop width dynamically based on layout, fall back to hardcoded math
-          let translationDistance = cards[halfCount].offsetLeft - cards[0].offsetLeft;
-          if (translationDistance <= 0) {
-            translationDistance = halfCount * 312; // 300px width + 12px gap
-          }
-          
-          // Create keyframes and options
-          const keyframes = [
-            { transform: 'translate3d(0, 0, 0)' },
-            { transform: `translate3d(-${translationDistance}px, 0, 0)` }
-          ];
-          
-          const speed = 142; // px per second
-          const duration = (translationDistance / speed) * 1000;
-          
-          const anim = scrollTrack.animate(keyframes, {
-            duration: duration,
-            iterations: Infinity,
-            easing: 'linear'
-          });
-          
-          // Control playback rate on container hover for a reliable, jitter-free hover zone
-          marqueeContainer.addEventListener('mouseenter', () => {
-            anim.playbackRate = 0.12; // slow drift speed (12%)
-          });
-          
-          marqueeContainer.addEventListener('mouseleave', () => {
-            anim.playbackRate = 1.0; // normal speed
-          });
-        }
-      }
-
-      // --- MOTION BLUR SCROLL EFFECT ---
-      const scrollWrapper = document.getElementById('scroll-wrapper');
-      if (scrollWrapper) {
-        let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
-        let lastScrollTime = Date.now();
-        let blurTimeout = null;
-
-        window.addEventListener('scroll', () => {
-          const scrollTop = window.scrollY || document.documentElement.scrollTop;
-          const scrollTime = Date.now();
-
-          const deltaY = Math.abs(scrollTop - lastScrollTop);
-          const deltaT = Math.max(1, scrollTime - lastScrollTime);
-          const speed = deltaY / deltaT; // pixels per millisecond
-
-          // Calculate motion blur amount (max 6px blur)
-          const blurAmount = Math.min(6, speed * 2.5);
-
-          if (blurAmount > 0.4) {
-            scrollWrapper.style.transition = 'filter 0.08s ease-out';
-            scrollWrapper.style.filter = `blur(${blurAmount.toFixed(1)}px)`;
-          } else {
-            scrollWrapper.style.filter = 'none';
-          }
-
-          lastScrollTop = scrollTop;
-          lastScrollTime = scrollTime;
-
-          // Clean up blur when scroll stops
-          clearTimeout(blurTimeout);
-          blurTimeout = setTimeout(() => {
-            scrollWrapper.style.filter = 'none';
-          }, 100);
-        }, { passive: true });
-      }
+      lucide.createIcons();
 
 
 

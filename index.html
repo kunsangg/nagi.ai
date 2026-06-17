@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/main.css?v=2.5">
 </head>
 <body>
   <div class="noise-overlay"></div>
@@ -34,22 +34,36 @@
 
   <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="#" class="nav-logo">NAGI</a>
+    <a href="#" class="nav-logo">
+      <img src="nagi_logo.png" alt="NAGI Logo" class="nav-logo-img logo-light">
+      <img src="nagi_logo_dark.png" alt="NAGI Logo" class="nav-logo-img logo-dark">
+      <span class="nav-logo-text">NAGI</span>
+    </a>
     <ul class="nav-links">
-      <li><a href="#problem">The Gap</a></li>
-      <li><a href="#works">How it works</a></li>
-      <li><a href="#audience">Who it's for</a></li>
+      <li>
+        <a href="#demo">Explore</a>
+      </li>
+      <li>
+        <a href="#problem">The Gap</a>
+      </li>
+      <li>
+        <a href="#works">How it works</a>
+      </li>
+      <li>
+        <a href="#audience">Who it's for</a>
+      </li>
     </ul>
     <div class="nav-right">
-      <a href="#waitlist" class="btn btn-primary">Join Waitlist</a>
-      <a href="#" class="nav-logo-img" tabindex="-1" aria-hidden="true">
-        <img src="assets/images/nagi_logo.png" alt="NAGI Logo" class="nav-logo-png">
+      <a href="#" class="nav-download-btn">
+        Request Early Access <i data-lucide="arrow-right" class="nav-download-icon"></i>
       </a>
     </div>
   </nav>
 
+  <div id="scroll-wrapper">
+
   <!-- HERO SCROLL CINEMATIC SEQUENCE - AFTERNOW.CO ALIGNMENT -->
-  <section class="home-hero" id="hero-scroll-container">
+  <section class="home-hero snap-section" id="hero-scroll-container">
     <!-- Kinetic Intro Overlay Sequence (Motion Beast Reference) -->
     <div class="kinetic-intro-overlay" id="kinetic-intro" style="z-index: 200;">
       <button class="skip-intro-btn" id="skip-intro">Skip Intro</button>
@@ -100,406 +114,338 @@
     </div>
   </section>
 
-  <!-- SCREEN SCROLL DEMO SECTION -->
-  <section class="laptop-scroll-section" id="demo">
-    <!-- Sticky screen mockup -->
-    <div class="laptop-sticky-container">
-      <div class="laptop-ambient-glow"></div>
-      
-      <div class="huge-screen-mockup demo-browser">
-        <div class="laptop-display app workspace">
-          
-          <!-- Simulated App Navbar inside Mockup -->
-          <div class="mock-nav">
-            <div class="mock-dots">
-              <div class="mock-dot red"></div>
-              <div class="mock-dot yellow"></div>
-              <div class="mock-dot green"></div>
-            </div>
-            <div class="mock-tab" id="mock-tab-title">Nagi: Search</div>
-          </div>
-
-          <!-- Screen 1: Search (Dribbble Scanner Animation Reference) -->
-          <div class="laptop-screen-state state-view search-view active" data-state="1" style="background: #fafbfc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-            <div class="gif-scan-container" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-              <img src="assets/gif/search_scanner.gif" alt="Search Scanning Animation" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+  <!-- PHOTO SCROLL ANIMATION SECTION (LUNDANI STYLE) -->
+  <section class="photo-scroll-section snap-section" id="demo" style="background: #ffffff;">
+    <div class="photo-scroll-header">
+      <h2 class="photo-scroll-title">A Tribute to the<br>Pioneers of Discovery</h2>
+      <p class="photo-scroll-desc">Behind every modern breakthrough lies centuries of questions, experiments, and discoveries. Their work continues to inspire the future of research.</p>
+    </div>
+    
+    <div class="photo-scroll-marquee">
+      <div class="photo-scroll-track">
+        <!-- First set of scientists -->
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/galileo.png" alt="Galileo Galilei" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Astronomy & Physics</span>
+              <h3 class="scientist-name">Galileo Galilei</h3>
             </div>
           </div>
+        </div>
 
-          <!-- Screen 2: Research Map (Branching Paper Graph) -->
-          <div class="laptop-screen-state state-view" data-state="2" style="background: #f7f8fb; overflow: hidden; flex-direction: column;">
-            <!-- Header bar -->
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid rgba(0,0,0,0.06); background: #fff; flex-shrink: 0;">
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 10px; font-weight: 600; color: #1c1c1e; letter-spacing: -0.01em;">Research Map</span>
-                <span style="font-size: 9px; background: #e8f0fe; color: #1a73e8; padding: 2px 6px; border-radius: 10px; font-weight: 500;">8 papers</span>
-              </div>
-              <div style="display: flex; gap: 6px; align-items: center;">
-                <span style="font-size: 8px; color: #86868b; background: rgba(0,0,0,0.04); padding: 2px 8px; border-radius: 4px;">Federated Learning</span>
-                <div style="width: 20px; height: 20px; background: #f0f0f0; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                </div>
-              </div>
-            </div>
-            <!-- SVG Graph Canvas -->
-            <svg id="research-map-svg" style="width:100%; flex: 1; display: block; min-height: 0;" viewBox="0 0 600 370" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
-                  <polygon points="0 0, 6 2, 0 4" fill="#cbd5e1"/>
-                </marker>
-                <filter id="node-shadow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.08)"/>
-                </filter>
-                <filter id="node-shadow-active" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(59,130,246,0.2)"/>
-                </filter>
-              </defs>
-
-              <!-- Connection Lines (drawn first, behind nodes) -->
-              <!-- Root → Federated -->
-              <line x1="300" y1="58" x2="220" y2="120" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- Root → Transformers -->
-              <line x1="300" y1="58" x2="380" y2="120" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- Federated → Healthcare -->
-              <line x1="220" y1="145" x2="115" y2="200" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- Federated → Privacy -->
-              <line x1="220" y1="145" x2="220" y2="200" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- Transformers → BERT -->
-              <line x1="380" y1="145" x2="380" y2="200" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- Transformers → GPT3 -->
-              <line x1="380" y1="145" x2="490" y2="200" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- Healthcare → Scale -->
-              <line x1="115" y1="225" x2="175" y2="295" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- Privacy → Scale -->
-              <line x1="220" y1="225" x2="175" y2="295" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- BERT → Gaps -->
-              <line x1="380" y1="225" x2="420" y2="295" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- GPT3 → Gaps -->
-              <line x1="490" y1="225" x2="420" y2="295" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowhead)"/>
-              <!-- Cross-link: Privacy → BERT -->
-              <path d="M 260 215 C 310 215, 330 215, 360 215" stroke="#e2e8f0" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
-
-              <!-- ROOT NODE: Central topic -->
-              <g filter="url(#node-shadow-active)">
-                <rect x="240" y="22" width="120" height="36" rx="8" fill="#3b82f6"/>
-                <text x="300" y="36" text-anchor="middle" fill="white" font-size="8" font-weight="700" font-family="Inter, sans-serif">Federated Learning</text>
-                <text x="300" y="48" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="7" font-family="Inter, sans-serif">for Healthcare Privacy</text>
-              </g>
-
-              <!-- Tier 1 Left: Federated -->
-              <g filter="url(#node-shadow)" class="map-node" style="cursor:pointer;">
-                <rect x="155" y="120" width="130" height="50" rx="7" fill="white" stroke="#3b82f6" stroke-width="1.5"/>
-                <text x="170" y="136" fill="#3b82f6" font-size="7" font-weight="700" font-family="Inter, sans-serif">FEDERATED LEARNING</text>
-                <text x="170" y="148" fill="#374151" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">McMahan et al.</text>
-                <text x="170" y="159" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">2017 • 18k citations</text>
-                <rect x="155" y="120" width="5" height="50" rx="3" fill="#3b82f6"/>
-              </g>
-
-              <!-- Tier 1 Right: Transformers -->
-              <g filter="url(#node-shadow)" class="map-node" style="cursor:pointer;">
-                <rect x="315" y="120" width="130" height="50" rx="7" fill="white" stroke="#8b5cf6" stroke-width="1.5"/>
-                <text x="330" y="136" fill="#8b5cf6" font-size="7" font-weight="700" font-family="Inter, sans-serif">TRANSFORMERS</text>
-                <text x="330" y="148" fill="#374151" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">Vaswani et al.</text>
-                <text x="330" y="159" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">2017 • 60k citations</text>
-                <rect x="315" y="120" width="5" height="50" rx="3" fill="#8b5cf6"/>
-              </g>
-
-              <!-- Tier 2 Left-Left: Healthcare -->
-              <g filter="url(#node-shadow)" class="map-node" style="cursor:pointer;">
-                <rect x="52" y="200" width="126" height="50" rx="7" fill="white" stroke="#10b981" stroke-width="1.5"/>
-                <text x="67" y="216" fill="#10b981" font-size="7" font-weight="700" font-family="Inter, sans-serif">HEALTHCARE FL</text>
-                <text x="67" y="228" fill="#374151" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">Rieke et al.</text>
-                <text x="67" y="239" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">2020 • Clinical AI</text>
-                <rect x="52" y="200" width="5" height="50" rx="3" fill="#10b981"/>
-              </g>
-
-              <!-- Tier 2 Left-Right: Privacy -->
-              <g filter="url(#node-shadow)" class="map-node" style="cursor:pointer;">
-                <rect x="155" y="200" width="126" height="50" rx="7" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-                <text x="170" y="216" fill="#f59e0b" font-size="7" font-weight="700" font-family="Inter, sans-serif">DIFFERENTIAL PRIVACY</text>
-                <text x="170" y="228" fill="#374151" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">Dwork et al.</text>
-                <text x="170" y="239" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">2014 • Privacy Math</text>
-                <rect x="155" y="200" width="5" height="50" rx="3" fill="#f59e0b"/>
-              </g>
-
-              <!-- Tier 2 Right-Left: BERT -->
-              <g filter="url(#node-shadow)" class="map-node" style="cursor:pointer;">
-                <rect x="315" y="200" width="126" height="50" rx="7" fill="white" stroke="#ec4899" stroke-width="1.5"/>
-                <text x="330" y="216" fill="#ec4899" font-size="7" font-weight="700" font-family="Inter, sans-serif">NLP PRETRAINING</text>
-                <text x="330" y="228" fill="#374151" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">Devlin et al. (BERT)</text>
-                <text x="330" y="239" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">2018 • Language</text>
-                <rect x="315" y="200" width="5" height="50" rx="3" fill="#ec4899"/>
-              </g>
-
-              <!-- Tier 2 Right-Right: GPT-3 -->
-              <g filter="url(#node-shadow)" class="map-node" style="cursor:pointer;">
-                <rect x="428" y="200" width="126" height="50" rx="7" fill="white" stroke="#6366f1" stroke-width="1.5"/>
-                <text x="443" y="216" fill="#6366f1" font-size="7" font-weight="700" font-family="Inter, sans-serif">FEW-SHOT LLMs</text>
-                <text x="443" y="228" fill="#374151" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">Brown et al. (GPT-3)</text>
-                <text x="443" y="239" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">2020 • Scaling</text>
-                <rect x="428" y="200" width="5" height="50" rx="3" fill="#6366f1"/>
-              </g>
-
-              <!-- Tier 3 Left: Scale -->
-              <g filter="url(#node-shadow)" class="map-node" style="cursor:pointer;">
-                <rect x="105" y="295" width="140" height="44" rx="7" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4,3"/>
-                <text x="120" y="311" fill="#6b7280" font-size="7" font-weight="700" font-family="Inter, sans-serif">SYSTEM DESIGN</text>
-                <text x="120" y="323" fill="#374151" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">Bonawitz et al.</text>
-                <text x="120" y="333" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">2019 • Production FL</text>
-              </g>
-
-              <!-- Tier 3 Right: Open Problems/Gaps -->
-              <g filter="url(#node-shadow)" class="map-node" style="cursor:pointer;">
-                <rect x="350" y="295" width="140" height="44" rx="7" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="4,3"/>
-                <text x="365" y="311" fill="#6b7280" font-size="7" font-weight="700" font-family="Inter, sans-serif">OPEN PROBLEMS</text>
-                <text x="365" y="323" fill="#374151" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">Kairouz et al.</text>
-                <text x="365" y="333" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">2021 • Survey</text>
-              </g>
-
-              <!-- Relevance legend bottom-left -->
-              <rect x="10" y="340" width="90" height="22" rx="4" fill="rgba(255,255,255,0.8)"/>
-              <circle cx="20" cy="351" r="3" fill="#3b82f6"/>
-              <text x="27" y="354.5" fill="#6b7280" font-size="6.5" font-family="Inter, sans-serif">High relevance</text>
-              <circle cx="63" cy="351" r="3" fill="#d1d5db"/>
-              <text x="70" y="354.5" fill="#9ca3af" font-size="6.5" font-family="Inter, sans-serif">Peripheral</text>
-            </svg>
-          </div>
-
-          <!-- Screen 3: Detail View -->
-          <div class="laptop-screen-state state-view dashboard-view" data-state="3" style="background:#faf8f5;">
-            <div class="state-detail-wrap" style="display: flex; width: 100%; height: 100%; background: #faf8f5; border-radius: 0 0 12px 12px; overflow: hidden;">
-              <!-- Left Panel: White Document Page -->
-              <div class="detail-left-bg" style="width: 65%; background: #faf8f5; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; border-right: 1px solid rgba(0, 0, 0, 0.08); scrollbar-width: none;">
-                <!-- Breadcrumbs & Search bar inside the app -->
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #86868b; margin-bottom: 8px;">
-                  <span>Research Papers &nbsp;▸&nbsp; The Illusion of Thinking...</span>
-                  <div style="background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 4px; padding: 2px 8px; display: flex; align-items: center; gap: 4px; width: 120px;">
-                    <i data-lucide="search" style="width: 10px; height: 10px;"></i>
-                    <span style="font-size: 9px; color: #c5c5c7;">Search...</span>
-                  </div>
-                </div>
-                <!-- Document Page Mockup -->
-                <div style="background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 12px; min-height: 100%;">
-                  <span style="font-size: 9px; font-weight: 500; color: #86868b; text-transform: uppercase; letter-spacing: 0.05em;">Published on January 2024</span>
-                  <h2 style="font-family: Georgia, serif; font-size: 16px; font-weight: 600; line-height: 1.35; color: #1c1c1e;">
-                    The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity
-                  </h2>
-                  <!-- Color Tags Row -->
-                  <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0;">
-                    <span class="deck-card__tag" style="background-color: #e2f5ec; color: #0d8a5f; font-size: 8px; padding: 2px 6px; border-radius: 4px;">LLaMA</span>
-                    <span class="deck-card__tag" style="background-color: #fde8eb; color: #d63346; font-size: 8px; padding: 2px 6px; border-radius: 4px;">OpenSource</span>
-                    <span class="deck-card__tag" style="background-color: #e8f0fe; color: #1a73e8; font-size: 8px; padding: 2px 6px; border-radius: 4px;">FoundationModels</span>
-                    <span class="deck-card__tag" style="background-color: #f3e8fd; color: #9333ea; font-size: 8px; padding: 2px 6px; border-radius: 4px;">LanguageModeling</span>
-                    <span class="deck-card__tag" style="background-color: #ffebe0; color: #e05300; font-size: 8px; padding: 2px 6px; border-radius: 4px;">Meta</span>
-                  </div>
-                  <!-- Abstract Text -->
-                  <div style="margin-top: 10px;">
-                    <h4 style="font-family: Georgia, serif; font-size: 12px; font-weight: bold; color: #1c1c1e; margin-bottom: 6px;">Abstract</h4>
-                    <p style="font-family: Georgia, serif; font-size: 10.5px; line-height: 1.55; color: #48484a; text-align: justify; margin-bottom: 12px;">
-                      Recent generations of frontier language models have introduced Large Reasoning Models (LRMs) that generate detailed thinking processes before providing answers. While these models demonstrate improved performance on reasoning benchmarks, their capabilities under varying problem complexity remain poorly understood...
-                    </p>
-                    <h4 style="font-family: Georgia, serif; font-size: 12px; font-weight: bold; color: #1c1c1e; margin-bottom: 6px;">Introduction</h4>
-                    <p style="font-family: Georgia, serif; font-size: 10.5px; line-height: 1.55; color: #48484a; text-align: justify;">
-                      Large Language Models (LLMs) have recently evolved to include specialized variants explicitly designed for reasoning tasks—Large Reasoning Models (LRMs) such as OpenAI's o1/o3, DeepSeek-R1, and Claude 3.7 Sonnet.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Right Panel: Light Grey Sidebar -->
-              <div class="detail-right-pane" style="width: 35%; background: #f5f2eb; padding: 16px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; border-radius: 0 0 12px 0; scrollbar-width: none; border-left: none;">
-                <!-- Sidebar Tabs Mockup -->
-                <div style="display: flex; background: rgba(0,0,0,0.04); padding: 2px; border-radius: 6px; font-size: 9px; font-weight: 500; text-align: center; flex-shrink: 0;">
-                  <div style="flex: 1; background: #ffffff; padding: 4px; border-radius: 4px; color: #1c1c1e; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Paper Details</div>
-                  <div style="flex: 1; padding: 4px; color: #86868b; cursor: pointer;">My Notes</div>
-                </div>
-                
-                <!-- In this paper TOC Section -->
-                <div>
-                  <span style="font-size: 8px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">In this paper</span>
-                  <div style="display: flex; flex-direction: column; gap: 4px; font-size: 9.5px; color: #48484a;">
-                    <div style="color: #0071e3; font-weight: 500;">• Abstract</div>
-                    <div>• Introduction</div>
-                    <div>• Related Works</div>
-                    <div>• Math & Puzzle Environments</div>
-                    <div>• Experiments & Results</div>
-                    <div>• Conclusion</div>
-                  </div>
-                </div>
-                
-                <!-- Authors Section -->
-                <div>
-                  <span style="font-size: 8px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Authors</span>
-                  <div style="display: flex; flex-direction: column; gap: 6px;">
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                      <div style="width: 16px; height: 16px; background-color: #3b82f6; border-radius: 50%; color: #fff; font-size: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">PS</div>
-                      <span style="font-size: 9.5px; color: #1c1c1e; font-weight: 500;">Parshin Shojaee</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                      <div style="width: 16px; height: 16px; background-color: #9333ea; border-radius: 50%; color: #fff; font-size: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">IM</div>
-                      <span style="font-size: 9.5px; color: #1c1c1e; font-weight: 500;">Iman Mirzadeh</span>
-                    </div>
-                    <span style="font-size: 9px; color: #0071e3; cursor: pointer; margin-left: 22px;">& 4 more. Click to View</span>
-                  </div>
-                </div>
-                
-                <!-- Scheduled Discussions Card Section -->
-                <div>
-                  <span style="font-size: 8px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Scheduled Discussions (1)</span>
-                  <div style="background: #ffffff; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px; padding: 10px; display: flex; gap: 8px; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-                    <div style="background: #fde8eb; border: 1px solid #f9dadf; color: #d63346; border-radius: 6px; padding: 4px 6px; text-align: center; display: flex; flex-direction: column; min-width: 32px; flex-shrink: 0;">
-                      <span style="font-size: 9px; font-weight: bold; line-height: 1;">15</span>
-                      <span style="font-size: 6.5px; font-weight: bold; text-transform: uppercase; margin-top: 1px;">SEP</span>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 2px;">
-                      <span style="font-size: 9px; font-weight: 600; color: #1c1c1e; line-height: 1.2;">Modern Prompting Techniques Seminar</span>
-                      <span style="font-size: 7.5px; color: #86868b;">Prof. Michael Torres • Stanford NLP Group</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/hooke.png" alt="Robert Hooke" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Microscopy & Physics</span>
+              <h3 class="scientist-name">Robert Hooke</h3>
             </div>
           </div>
+        </div>
 
-          <!-- Screen 4: Connections Map -->
-          <div class="laptop-screen-state state-view connections-view" data-state="4" style="background:#faf8f5;">
-            <div class="state-conn-wrap" style="display: flex; width: 100%; height: 100%; background: #faf8f5; border-radius: 0 0 12px 12px; overflow: hidden; padding: 20px; gap: 20px;">
-              <!-- Left Column: Video Mockup -->
-              <div style="width: 50%; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.02);">
-                <div style="height: 28px; background: #f5f5f7; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; padding: 0 12px; justify-content: space-between;">
-                  <span style="font-size: 9px; font-weight: 600; color: #86868b; letter-spacing: 0.05em; text-transform: uppercase;">Literature Review Engine</span>
-                  <span style="font-size: 8px; color: #3b82f6; font-weight: 500; display: flex; align-items: center; gap: 4px;">
-                    <span style="width: 5px; height: 5px; background: #3b82f6; border-radius: 50%; display: inline-block;"></span> Live Preview
-                  </span>
-                </div>
-                <div style="flex: 1; background: #000; position: relative;">
-                  <video src="https://cdn.dribbble.com/userupload/46289846/file/c73b6375c0c5d658675baa18f597d445.mp4" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-                </div>
-              </div>
-
-              <!-- Right Column: Concept Ontology Map -->
-              <div style="width: 50%; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.02); position: relative; padding: 12px;">
-                <div style="font-size: 9px; font-weight: bold; color: #86868b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 6px;">
-                  Concept Ontology Map
-                </div>
-                <!-- SVG Connections overlay -->
-                <div style="position: relative; flex: 1; overflow: hidden;">
-                  <svg style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1;" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <!-- Lines connecting nodes -->
-                    <path d="M 50,42 L 24,15" stroke="rgba(0,0,0,0.12)" stroke-width="1" fill="none" />
-                    <path d="M 50,42 L 50,15" stroke="rgba(0,0,0,0.12)" stroke-width="1" fill="none" />
-                    <path d="M 50,42 L 76,15" stroke="rgba(0,0,0,0.12)" stroke-width="1" fill="none" />
-                    <path d="M 50,42 L 20,70" stroke="rgba(0,0,0,0.12)" stroke-width="1" fill="none" />
-                    <path d="M 50,42 L 80,70" stroke="rgba(0,0,0,0.12)" stroke-width="1" fill="none" />
-                    
-                    <path d="M 24,15 L 10,25" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    <path d="M 24,15 L 24,5" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    <path d="M 50,15 L 45,5" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    <path d="M 50,15 L 55,5" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    <path d="M 76,15 L 70,5" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    <path d="M 76,15 L 90,15" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    
-                    <path d="M 20,70 L 10,60" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    <path d="M 20,70 L 30,60" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    <path d="M 80,70 L 70,60" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                    <path d="M 80,70 L 90,60" stroke="rgba(0,0,0,0.1)" stroke-width="0.75" stroke-dasharray="2 2" fill="none" />
-                  </svg>
-                  
-                  <!-- Main Concept nodes -->
-                  <div style="position: absolute; left: 24%; top: 15%; transform: translate(-50%, -50%); background: #ffffff; border: 1px solid #000000; border-radius: 4px; padding: 4px 8px; font-size: 8px; font-weight: 600; color: #1c1c1e; z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-                    Diagnosis of viral infections
-                  </div>
-                  <div style="position: absolute; left: 50%; top: 15%; transform: translate(-50%, -50%); background: #ffffff; border: 1px solid #000000; border-radius: 4px; padding: 4px 8px; font-size: 8px; font-weight: 600; color: #1c1c1e; z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-                    Spread of viral infections
-                  </div>
-                  <div style="position: absolute; left: 76%; top: 15%; transform: translate(-50%, -50%); background: #ffffff; border: 1px solid #000000; border-radius: 4px; padding: 4px 8px; font-size: 8px; font-weight: 600; color: #1c1c1e; z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-                    Coronaviruses
-                  </div>
-                  <div style="position: absolute; left: 20%; top: 70%; transform: translate(-50%, -50%); background: #ffffff; border: 1px solid #000000; border-radius: 4px; padding: 4px 8px; font-size: 8px; font-weight: 600; color: #1c1c1e; z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-                    Lung diseases
-                  </div>
-                  <div style="position: absolute; left: 80%; top: 70%; transform: translate(-50%, -50%); background: #ffffff; border: 1px solid #000000; border-radius: 4px; padding: 4px 8px; font-size: 8px; font-weight: 600; color: #1c1c1e; z-index: 2; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-                    Cardiovascular diseases
-                  </div>
-                  
-                  <!-- Associated text labels -->
-                  <div style="position: absolute; left: 10%; top: 25%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">screening</div>
-                  <div style="position: absolute; left: 24%; top: 4%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">diagnostic</div>
-                  <div style="position: absolute; left: 45%; top: 4%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">diagnosis</div>
-                  <div style="position: absolute; left: 55%; top: 4%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">myxomatous</div>
-                  <div style="position: absolute; left: 70%; top: 4%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">detection</div>
-                  <div style="position: absolute; left: 90%; top: 15%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">outbreak</div>
-                  
-                  <!-- Center connection dot -->
-                  <div style="position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); background: #e8f0fe; border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 50%; width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; z-index: 3; box-shadow: 0 0 8px rgba(59,130,246,0.3);">
-                    <div style="width: 6px; height: 6px; background: #1a73e8; border-radius: 50%;"></div>
-                  </div>
-                  
-                  <!-- Bottom associations -->
-                  <div style="position: absolute; left: 10%; top: 60%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">sarcoidosis</div>
-                  <div style="position: absolute; left: 30%; top: 60%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">asthma</div>
-                  <div style="position: absolute; left: 70%; top: 60%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">cardiac</div>
-                  <div style="position: absolute; left: 90%; top: 60%; transform: translate(-50%, -50%); font-size: 7.5px; color: #48484a; font-weight: 500; z-index: 2;">heart</div>
-                </div>
-              </div>
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/newton.jpg" alt="Isaac Newton" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Mathematics & Physics</span>
+              <h3 class="scientist-name">Isaac Newton</h3>
             </div>
           </div>
+        </div>
 
-          <!-- Screen 5: Outline -->
-          <div class="laptop-screen-state state-view outline-view" data-state="5">
-            <div class="state-outline-wrap">
-              <div class="outline-sidebar">
-                <div class="outline-sidebar-item"></div>
-                <div class="outline-sidebar-item"></div>
-                <div class="outline-sidebar-item"></div>
-                <div class="outline-sidebar-item"></div>
-              </div>
-              <div class="outline-main">
-                <h4 class="outline-header-stub">Literature Review Outline</h4>
-                <div class="outline-list" id="outline-rows-container">
-                  <div class="outline-item-row">
-                    <span class="outline-number">1</span>
-                    <div class="outline-text-content">
-                      <span class="outline-item-title">Privacy Bottlenecks in Healthcare Data Sharing</span>
-                      <span class="outline-item-desc">Analysis of compliance limitations (HIPAA, GDPR) and why standard anonymization fails.</span>
-                    </div>
-                  </div>
-                  <div class="outline-item-row">
-                    <span class="outline-number">2</span>
-                    <div class="outline-text-content">
-                      <span class="outline-item-title">Federated Optimization Protocols</span>
-                      <span class="outline-item-desc">A deep dive into FedAvg, FedProx and trade-offs between communication and convergence speed.</span>
-                    </div>
-                  </div>
-                  <div class="outline-item-row">
-                    <span class="outline-number">3</span>
-                    <div class="outline-text-content">
-                      <span class="outline-item-title">Active Security Threats & Mitigations</span>
-                      <span class="outline-item-desc">Gradient leakage, model inversion, and defenses (Differential Privacy, Secure Multi-party Computation).</span>
-                    </div>
-                  </div>
-                  <div class="outline-item-row">
-                    <span class="outline-number">4</span>
-                    <div class="outline-text-content">
-                      <span class="outline-item-title">Open Gaps & Research Opportunities</span>
-                      <span class="outline-item-desc">Unaddressed issues in client drift, non-IID data distribution, and bias in medical datasets.</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/darwin.png" alt="Charles Darwin" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Evolutionary Biology</span>
+              <h3 class="scientist-name">Charles Darwin</h3>
             </div>
           </div>
+        </div>
 
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/lovelace.png" alt="Ada Lovelace" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Computer Science</span>
+              <h3 class="scientist-name">Ada Lovelace</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/mendel.png" alt="Gregor Mendel" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Genetics & Botany</span>
+              <h3 class="scientist-name">Gregor Mendel</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/pasteur.jpg" alt="Louis Pasteur" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Microbiology & Chemistry</span>
+              <h3 class="scientist-name">Louis Pasteur</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/freud.png" alt="Sigmund Freud" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Psychoanalysis & Psychology</span>
+              <h3 class="scientist-name">Sigmund Freud</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/carver.png" alt="George Washington Carver" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Agricultural Science</span>
+              <h3 class="scientist-name">George Washington Carver</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/curie.png" alt="Marie Curie" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Physics & Chemistry</span>
+              <h3 class="scientist-name">Marie Curie</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/tesla.jpg" alt="Nikola Tesla" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Electrical Engineering</span>
+              <h3 class="scientist-name">Nikola Tesla</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/carson.png" alt="Rachel Carson" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Marine Biology & Ecology</span>
+              <h3 class="scientist-name">Rachel Carson</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/turing.png" alt="Alan Turing" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Computer Science & Math</span>
+              <h3 class="scientist-name">Alan Turing</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/elion.png" alt="Gertrude B. Elion" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Pharmacology & Biochemistry</span>
+              <h3 class="scientist-name">Gertrude B. Elion</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/einstein.png" alt="Albert Einstein" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Theoretical Physics</span>
+              <h3 class="scientist-name">Albert Einstein</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/bohr.png" alt="Niels Bohr" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Quantum Physics</span>
+              <h3 class="scientist-name">Niels Bohr</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Duplicated set for seamless loop -->
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/galileo.png" alt="Galileo Galilei" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Astronomy & Physics</span>
+              <h3 class="scientist-name">Galileo Galilei</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/hooke.png" alt="Robert Hooke" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Microscopy & Physics</span>
+              <h3 class="scientist-name">Robert Hooke</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/newton.jpg" alt="Isaac Newton" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Mathematics & Physics</span>
+              <h3 class="scientist-name">Isaac Newton</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/darwin.png" alt="Charles Darwin" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Evolutionary Biology</span>
+              <h3 class="scientist-name">Charles Darwin</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/lovelace.png" alt="Ada Lovelace" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Computer Science</span>
+              <h3 class="scientist-name">Ada Lovelace</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/mendel.png" alt="Gregor Mendel" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Genetics & Botany</span>
+              <h3 class="scientist-name">Gregor Mendel</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/pasteur.jpg" alt="Louis Pasteur" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Microbiology & Chemistry</span>
+              <h3 class="scientist-name">Louis Pasteur</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/freud.png" alt="Sigmund Freud" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Psychoanalysis & Psychology</span>
+              <h3 class="scientist-name">Sigmund Freud</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/carver.png" alt="George Washington Carver" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Agricultural Science</span>
+              <h3 class="scientist-name">George Washington Carver</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/curie.png" alt="Marie Curie" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Physics & Chemistry</span>
+              <h3 class="scientist-name">Marie Curie</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/tesla.jpg" alt="Nikola Tesla" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Electrical Engineering</span>
+              <h3 class="scientist-name">Nikola Tesla</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/carson.png" alt="Rachel Carson" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Marine Biology & Ecology</span>
+              <h3 class="scientist-name">Rachel Carson</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/turing.png" alt="Alan Turing" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Computer Science & Math</span>
+              <h3 class="scientist-name">Alan Turing</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/elion.png" alt="Gertrude B. Elion" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Pharmacology & Biochemistry</span>
+              <h3 class="scientist-name">Gertrude B. Elion</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/einstein.png" alt="Albert Einstein" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Theoretical Physics</span>
+              <h3 class="scientist-name">Albert Einstein</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-scroll-slot scientist-card">
+          <img src="images/bohr.png" alt="Niels Bohr" class="scientist-img">
+          <div class="scientist-overlay">
+            <div class="scientist-meta">
+              <span class="scientist-tag">Quantum Physics</span>
+              <h3 class="scientist-name">Niels Bohr</h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    
-    <!-- Scroll Snapping Trigger Segments -->
-    <div class="screen-scroll-segment" data-segment="1"></div>
-    <div class="screen-scroll-segment" data-segment="2"></div>
-    <div class="screen-scroll-segment" data-segment="3"></div>
-    <div class="screen-scroll-segment" data-segment="4"></div>
-    <div class="screen-scroll-segment" data-segment="5"></div>
   </section>
 
   <!-- QUOTE SECTION -->
@@ -562,12 +508,37 @@
           <li>Updated with recent publications</li>
         </ul>
       </div>
-      <div class="work-visual fade-in" style="padding: 0; overflow: hidden; background: none;">
-        <img
-          src="assets/images/discover_papers.png"
-          alt="Overwhelmed by papers"
-          style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px; filter: grayscale(20%) contrast(1.05);"
-        >
+      <div class="work-visual fade-in">
+        <div class="sol-mockup-wrapper">
+          <div class="sol-mockup-header">
+            <div class="sol-mockup-dots">
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+            </div>
+            <div class="sol-mockup-address">nagi.ai/discover</div>
+          </div>
+          <div class="sol-mockup-body">
+            <div class="sol-search-bar">
+              <i data-lucide="search"></i>
+              <span>Federated Learning Privacy</span>
+            </div>
+            <div class="sol-card-list">
+              <div class="sol-card">
+                <span class="sol-card-title">1. Differential Privacy in Deep FL</span>
+                <span class="sol-card-badge sol-badge-blue">98% Match</span>
+              </div>
+              <div class="sol-card">
+                <span class="sol-card-title">2. Securing Client Optimization</span>
+                <span class="sol-card-badge sol-badge-green">94% Match</span>
+              </div>
+              <div class="sol-card">
+                <span class="sol-card-title">3. Privacy-Utility Trade-offs</span>
+                <span class="sol-card-badge sol-badge-gray">89% Match</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -584,12 +555,29 @@
           <li>How to cite it correctly</li>
         </ul>
       </div>
-      <div class="work-visual fade-in" style="padding: 0; overflow: hidden; background: none;">
-        <img
-          src="assets/images/understand_book.png"
-          alt="Open book with Metanoia diagram"
-          style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px;"
-        >
+      <div class="work-visual fade-in">
+        <div class="sol-mockup-wrapper">
+          <div class="sol-mockup-header">
+            <div class="sol-mockup-dots">
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+            </div>
+            <div class="sol-mockup-address">nagi.ai/reader/paper-19</div>
+          </div>
+          <div class="sol-mockup-body">
+            <div class="sol-reader-title">Differential Privacy in Deep FL</div>
+            <div class="sol-reader-tabs">
+              <span class="sol-reader-tab active">Summary</span>
+              <span class="sol-reader-tab">Methodology</span>
+              <span class="sol-reader-tab">Limitations</span>
+            </div>
+            <div class="sol-reader-section">
+              <span class="sol-reader-heading">Plain Language Takeaway</span>
+              <p class="sol-reader-text">Adding noise to client gradients hides individual user data but slows down model learning speed by 15%.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -606,12 +594,30 @@
           <li>The debates that are still unresolved</li>
         </ul>
       </div>
-      <div class="work-visual fade-in" style="padding: 0; overflow: hidden; background: none;">
-        <img
-          src="assets/images/synthesize_network.png"
-          alt="Network graph showing paper connections"
-          style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px;"
-        >
+      <div class="work-visual fade-in">
+        <div class="sol-mockup-wrapper">
+          <div class="sol-mockup-header">
+            <div class="sol-mockup-dots">
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+            </div>
+            <div class="sol-mockup-address">nagi.ai/synthesize/map</div>
+          </div>
+          <div class="sol-graph-area">
+            <svg class="sol-graph-connections">
+              <line x1="50%" y1="50%" x2="25%" y2="28%" stroke="rgba(37, 99, 235, 0.15)" stroke-width="1.5" stroke-dasharray="3 3" />
+              <line x1="50%" y1="50%" x2="72%" y2="25%" stroke="rgba(37, 99, 235, 0.15)" stroke-width="1.5" />
+              <line x1="50%" y1="50%" x2="30%" y2="78%" stroke="rgba(37, 99, 235, 0.15)" stroke-width="1.5" />
+              <line x1="50%" y1="50%" x2="75%" y2="75%" stroke="rgba(37, 99, 235, 0.15)" stroke-width="1.5" stroke-dasharray="3 3" />
+            </svg>
+            <div class="sol-node central">Fed Privacy</div>
+            <div class="sol-node n1">McMahan 17</div>
+            <div class="sol-node n2">Abadi 16</div>
+            <div class="sol-node n3">Bonawitz 19</div>
+            <div class="sol-node n4">Li 20</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -628,12 +634,29 @@
           <li>Helps you position your own contribution</li>
         </ul>
       </div>
-      <div class="work-visual fade-in" style="padding: 0; overflow: hidden; background: none;">
-        <img
-          src="assets/images/discover_gaps.png"
-          alt="Researcher discovering something surprising"
-          style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px;"
-        >
+      <div class="work-visual fade-in">
+        <div class="sol-mockup-wrapper">
+          <div class="sol-mockup-header">
+            <div class="sol-mockup-dots">
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+            </div>
+            <div class="sol-mockup-address">nagi.ai/discover-gaps</div>
+          </div>
+          <div class="sol-mockup-body">
+            <div class="sol-gaps-header">
+              <span class="sol-gaps-title">Identified White Space</span>
+            </div>
+            <div class="sol-gap-row">
+              <div class="sol-gap-top">
+                <span class="sol-gap-name">Gap: Non-IID Adversarial FL</span>
+                <span class="sol-gap-badge">High Value</span>
+              </div>
+              <p class="sol-gap-desc">No current publications address model training robustness against gradient attacks when clients have non-homogeneous datasets.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -650,12 +673,37 @@
           <li>Export to any format</li>
         </ul>
       </div>
-      <div class="work-visual fade-in" style="padding: 0; overflow: hidden; background: none;">
-        <img
-          src="assets/images/write_paper.png"
-          alt="Hand writing research paper"
-          style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px;"
-        >
+      <div class="work-visual fade-in">
+        <div class="sol-mockup-wrapper">
+          <div class="sol-mockup-header">
+            <div class="sol-mockup-dots">
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+            </div>
+            <div class="sol-mockup-address">nagi.ai/outline-builder</div>
+          </div>
+          <div class="sol-mockup-body">
+            <div class="sol-outline-list">
+              <div class="sol-outline-item">
+                <span class="sol-outline-num">1.</span>
+                <span class="sol-outline-text">Introduction to FL Optimization</span>
+              </div>
+              <div class="sol-outline-subitem">
+                <span class="bullet"></span>
+                <span>Origins: FedAvg convergence limits (McMahan 17)</span>
+              </div>
+              <div class="sol-outline-item">
+                <span class="sol-outline-num">2.</span>
+                <span class="sol-outline-text">Symmetric Encryption Mitigation</span>
+              </div>
+              <div class="sol-outline-subitem">
+                <span class="bullet"></span>
+                <span>Secure Multi-Party computation rounds (Bonawitz 19)</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -672,12 +720,33 @@
           <li>Access from anywhere</li>
         </ul>
       </div>
-      <div class="work-visual fade-in" style="padding: 0; overflow: hidden; background: none;">
-        <img
-          src="assets/images/organise_papers.png"
-          alt="Colourful binder-clipped paper stacks"
-          style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px;"
-        >
+      <div class="work-visual fade-in">
+        <div class="sol-mockup-wrapper">
+          <div class="sol-mockup-header">
+            <div class="sol-mockup-dots">
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+              <span class="sol-mockup-dot"></span>
+            </div>
+            <div class="sol-mockup-address">nagi.ai/library</div>
+          </div>
+          <div class="sol-mockup-body">
+            <div class="sol-card-list">
+              <div class="sol-card" style="background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.05); color: #f4f4f5;">
+                <span class="sol-card-title" style="color: #f4f4f5;">Topic: Federated Learning</span>
+                <span class="sol-card-badge sol-badge-blue">6 Papers</span>
+              </div>
+              <div class="sol-card" style="background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.05); color: #f4f4f5;">
+                <span class="sol-card-title" style="color: #f4f4f5;">Topic: Differential Privacy</span>
+                <span class="sol-card-badge sol-badge-green">4 Papers</span>
+              </div>
+              <div class="sol-card" style="background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.05); color: #f4f4f5;">
+                <span class="sol-card-title" style="color: #f4f4f5;">Topic: Adversarial Attacks</span>
+                <span class="sol-card-badge sol-badge-gray">3 Papers</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -735,34 +804,135 @@
   </div>
 </section>
 
-  <footer class="footer snap-section" id="waitlist" style="position: relative; overflow: hidden; background: linear-gradient(to bottom, var(--bg-abyss), var(--bg-abyss-dark)); border-top: 1px solid rgba(255, 255, 255, 0.08);">
-    
-    <div class="footer-top" style="position: relative; z-index: 1;">
-      <div class="footer-cta fade-in">
-        <h2>Be the first to<br>navigate with Nagi.</h2>
-        <form class="waitlist-form">
-          <input type="email" class="waitlist-input" placeholder="your@email.com" required>
-          <button type="submit" class="btn btn-primary">Join Waitlist</button>
-        </form>
+  <footer class="footer snap-section" id="waitlist">
+    <div class="footer-main-content">
+      <div class="footer-inner-grid">
+        
+        <!-- Left Column: Slogan & Waitlist CTA -->
+        <div class="footer-left-col fade-in">
+          <p class="footer-slogan">Experience discovery.</p>
+          <div class="footer-cta-container">
+            <h3>Be the first to navigate with Nagi.</h3>
+            <form class="waitlist-form">
+              <input type="email" class="waitlist-input" placeholder="your@email.com" required>
+              <button type="submit" class="btn btn-primary">Join Waitlist</button>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Right Column: Navigation Links -->
+        <div class="footer-right-col fade-in" style="transition-delay: 0.1s;">
+          <div class="footer-nav-columns">
+            
+            <!-- Column 1: Product -->
+            <div class="footer-nav-column">
+              <p class="footer-nav-caption">Product</p>
+              <a href="#demo" class="footer-nav-link">Explore</a>
+              <a href="#waitlist" class="footer-nav-link">Download</a>
+              <a href="#waitlist" class="footer-nav-link">Pricing</a>
+            </div>
+            
+            <!-- Column 2: Resources -->
+            <div class="footer-nav-column">
+              <p class="footer-nav-caption">Resources</p>
+              <a href="#waitlist" class="footer-nav-link">Docs</a>
+              <a href="#waitlist" class="footer-nav-link">Changelog</a>
+              <a href="mailto:hello@nagi.ai" class="footer-nav-link">Contact Support</a>
+            </div>
+            
+            <!-- Column 3: Community -->
+            <div class="footer-nav-column">
+              <p class="footer-nav-caption">Community</p>
+              <a href="#" class="footer-nav-link">Twitter</a>
+              <a href="#" class="footer-nav-link">LinkedIn</a>
+              <a href="#" class="footer-nav-link">GitHub</a>
+            </div>
+            
+          </div>
+        </div>
+        
       </div>
-      <div class="footer-contact fade-in" style="transition-delay: 0.1s;">
-        <div style="font-size: 14px; color: var(--accent-light); margin-bottom: 8px;">Contact us</div>
-        <a href="mailto:hello@nagi.ai" style="color: #FFFFFF; text-decoration: none; font-size: 1.2rem; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-light)'" onmouseout="this.style.color='#FFFFFF'">hello@nagi.ai</a>
+      
+      <!-- Visual Giant outlined NAGI branding -->
+      <div class="footer-img-container fade-in" style="transition-delay: 0.2s;">
+        <svg class="footer-giant-svg" viewBox="0 0 1200 240" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+          <text x="50%" y="190" text-anchor="middle" font-family="var(--font-main)" font-weight="900" font-size="200" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="2" letter-spacing="16">NAGI</text>
+        </svg>
       </div>
+      
     </div>
-    <div class="footer-bottom fade-in" style="position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.08);">
-      <div class="footer-logo">Nagi © 2026</div>
-      <div class="footer-links">
-        <a href="#">Twitter</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Privacy Policy</a>
+    
+    <!-- Bottom Row Section -->
+    <div class="footer-bottom-section fade-in" style="transition-delay: 0.3s;">
+      <div class="footer-bottom-inner">
+        <div class="footer-bottom-brand">
+          Nagi © 2026
+        </div>
+        
+        <nav class="footer-bottom-nav">
+          <a href="#" class="footer-bottom-link">About Nagi</a>
+          <a href="#" class="footer-bottom-link">Privacy Policy</a>
+          <a href="#" class="footer-bottom-link">Terms</a>
+          <a href="#" class="footer-bottom-link footer-cookie-control">Manage cookies</a>
+        </nav>
       </div>
     </div>
   </footer>
 
+  </div><!-- #scroll-wrapper -->
+
+  <!-- EARLY ACCESS REQUEST MODAL -->
+  <div id="early-access-modal" class="ea-modal-overlay">
+    <div class="ea-modal-card">
+      <button class="ea-modal-close" id="ea-modal-close-btn">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="ea-modal-header">
+        <div class="ea-modal-badge">EARLY ACCESS</div>
+        <h2>Request Priority Access</h2>
+        <p>Join the next generation of research mapping. Tell us about your work to get early access to Nagi.</p>
+      </div>
+      <form class="ea-modal-form" id="ea-modal-form-el">
+        <div class="ea-form-group">
+          <label for="ea-name">Full Name</label>
+          <input type="text" id="ea-name" placeholder="John Doe" required>
+        </div>
+        <div class="ea-form-group">
+          <label for="ea-email">Email Address</label>
+          <input type="email" id="ea-email" placeholder="you@example.com" required>
+        </div>
+        <div class="ea-form-group">
+          <label for="ea-field">What are you researching?</label>
+          <input type="text" id="ea-field" placeholder="e.g. Quantum Computing, Cancer Biology" required>
+        </div>
+        <div class="ea-form-group">
+          <label for="ea-role">Your Role</label>
+          <select id="ea-role" required>
+            <option value="" disabled selected>Select your profile</option>
+            <option value="researcher">Academic Researcher</option>
+            <option value="student">Graduate/Undergraduate Student</option>
+            <option value="industry">Industry Specialist</option>
+            <option value="other">Curious Learner</option>
+          </select>
+        </div>
+        <button type="submit" class="ea-submit-btn">
+          Submit Request <i data-lucide="arrow-right"></i>
+        </button>
+      </form>
+      <div class="ea-modal-success" id="ea-modal-success-el" style="display: none;">
+        <div class="ea-success-icon-container">
+          <i data-lucide="check" class="ea-success-icon"></i>
+        </div>
+        <h3>You are on the list!</h3>
+        <p>Thank you for requesting early access. We will review your profile and reach out to you at <strong id="ea-success-email"></strong> as soon as space opens up.</p>
+        <button class="ea-success-close-btn" id="ea-success-close-btn-el">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Floating Undersea Bubbles Canvas -->
   <canvas id="bubble-canvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5; opacity: 0; transition: opacity 0.5s ease;"></canvas>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="assets/js/main.js" defer></script>
+  <script type="module" src="assets/js/main.js?v=2.5"></script>
 </body>
 </html>
