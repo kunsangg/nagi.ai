@@ -981,10 +981,10 @@
           const deltaT = Math.max(1, scrollTime - lastScrollTime);
           const speed = deltaY / deltaT; // pixels per millisecond
 
-          // Calculate motion blur amount (max 6px blur)
-          const blurAmount = Math.min(6, speed * 2.5);
+          // Calculate motion blur amount (max 2px blur for a subtle, premium effect)
+          const blurAmount = Math.min(2, speed * 0.8);
 
-          if (blurAmount > 0.4) {
+          if (blurAmount > 0.5) {
             scrollWrapper.style.transition = 'filter 0.08s ease-out';
             scrollWrapper.style.filter = `blur(${blurAmount.toFixed(1)}px)`;
           } else {
