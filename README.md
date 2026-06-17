@@ -1,16 +1,46 @@
-# React + Vite
+# Nagi.ai
+**AI-native academic research tool for students and researchers.**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Nagi cuts through the noise of academic search — surfacing the most relevant papers from thousands of results, then helping you actually understand them.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## The Problem
 
-## React Compiler
+Searching for research papers returns hundreds of irrelevant results. Reading through them takes hours. Writing a literature review takes days. Most students give up or miss critical work entirely.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## What Nagi Does
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Feature | Description |
+|---|---|
+| **Discover** | Surface the most relevant papers from large result sets — not just keyword matches |
+| **Understand** | Plain-language breakdowns of dense academic papers |
+| **Gap Detection** | Identify what hasn't been studied yet in a research area |
+| **Synthesize** | Connect findings across multiple papers automatically |
+| **Organise** | Keep your research structured and searchable |
+| **Write** | Generate literature review drafts grounded in real sources |
+
+---
+
+## Status
+
+Currently in active development. Marketing site is live. Launching at SMIT (Sikkim Manipal Institute of Technology) as the first pilot institution, then expanding to Indian engineering colleges.
+
+> **Go-to-market: Frame globally, prove locally.**
+
+---
+
+## Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript (marketing site)
+- **Core product:** In development
+
+---
+
+## Built By
+
+**Kunsang Dorjay** — Founder & CEO, Deexen AI  
+CSE @ Sikkim Manipal Institute of Technology  
+[LinkedIn](https://linkedin.com) · [GitHub](https://github.com)
