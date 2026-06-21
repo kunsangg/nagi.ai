@@ -946,7 +946,7 @@
             { transform: `translate3d(-${translationDistance}px, 0, 0)` }
           ];
           
-          const speed = 40; // px per second
+          const speed = 80; // px per second
           const duration = (translationDistance / speed) * 1000;
           
           const anim = scrollTrack.animate(keyframes, {
